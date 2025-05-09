@@ -1,6 +1,7 @@
 package com.mobisoft.opentelemetry.productservice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,13 +15,16 @@ import com.mobisoft.opentelemetry.productservice.model.Product;
 public class ProductController {
 
 	@Autowired
-    private RestTemplate restTemplate;
-	
+	private RestTemplate restTemplate;
+
+	@Value("${inventory.service.url}")
+	private String inventoryServiceUrl;
+
 	@GetMapping("/product/{productId}")
 	public Product getProduct(@PathVariable
 	String productId) {
 		Integer response = restTemplate.getForObject(
-				"http://localhost:9092/inventory-service/product/{productId}", Integer.class,
+				inventoryServiceUrl + "product/{productId}", Integer.class,
 				productId);
 		Product product = new Product();
 		product.setStock(response);

@@ -10,16 +10,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/inventory-service")
 public class InventoryController {
-	
-	private static final Logger LOGGER = LoggerFactory.getLogger(InventoryController.class);
-	
+
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(InventoryController.class);
+
 	@GetMapping("/product/{productId}")
 	public Integer getProductInventory(@PathVariable
 	String productId) {
 		try {
 			Thread.sleep(200);
 		} catch (InterruptedException e) {
-			LOGGER.error("Error ",e);
+			LOGGER.error("Error ", e);
 		}
 		return 100;
 	}
